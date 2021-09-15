@@ -35,7 +35,8 @@ def countdown():
             break
 
 while True:
-    start = WebDriverWait(browser, 5, 0.5).until(EC.presence_of_element_located((By.CLASS_NAME, "piecel-box")))
+    # start = WebDriverWait(browser, 5, 0.5).until(EC.presence_of_element_located((By.CLASS_NAME, "piecel-box")))
+    start = WebDriverWait(browser, 5, 0.5).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[3]/div[1]/ul/li[2]/a/div")))
     t = threading.Thread(target=countdown)
     start.click()
     t.start()
@@ -78,13 +79,13 @@ while True:
     question_index += 1
     next_button = browser.find_element_by_css_selector("body > div.button > ul > li:nth-child(2) > div")
     t.join()
-    while wait_time <= 0:
+    while wait_time == 0:
         next_button.click()
         # print("\n答题结束")
         break
     question_index = 0
     answer_list.clear()
-    again = input("答题结束，再答一次请返回首页后输入ok，退出输入quit")
+    again = input("\n答题结束，再答一次请返回首页后输入ok，退出输入quit")
     if again == "ok":
         wait_time = int(input("请输入答题时间："))
         wait_time = wait_time - 2
