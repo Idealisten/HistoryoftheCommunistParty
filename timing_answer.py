@@ -20,7 +20,6 @@ browser = webdriver.Chrome(options=options)
 browser.maximize_window()
 browser.get(url)
 wait_time = int(input("请输入答题时间："))
-wait_time = wait_time - 2
 ok = "nok"
 
 
@@ -29,14 +28,16 @@ def countdown():
     while wait_time > 0:
         # if ok == "ok":
         print("\r" + str(wait_time), end="")
+        # print(str(wait_time))
         time.sleep(1)
         wait_time -= 1
         if wait_time == 0:
             break
 
 while True:
-    # start = WebDriverWait(browser, 5, 0.5).until(EC.presence_of_element_located((By.CLASS_NAME, "piecel-box")))
-    start = WebDriverWait(browser, 5, 0.5).until(EC.presence_of_element_located((By.XPATH, "/html/body/div[3]/div[1]/ul/li[2]/a/div")))
+    start = WebDriverWait(browser, 5, 0.5).until(EC.presence_of_element_located((By.CLASS_NAME, "piecel-box")))
+    # start = WebDriverWait(browser, 5, 0.5).until(EC.presence_of_element_located(
+    # (By.XPATH, "/html/body/div[3]/div[1]/ul/li[2]/a/div")))
     t = threading.Thread(target=countdown)
     start.click()
     t.start()
@@ -52,25 +53,36 @@ while True:
         txt = f.read()
         txt_list = demjson.decode(txt)
         for question in txt_list:
-            if question["right"] == "A":
+            if question["right"] == "A" or question["right"] == "a":
                 answer_list.append(0)
-            elif question["right"] == "B":
+            elif question["right"] == "B" or question["right"] == "b":
                 answer_list.append(1)
-            elif question["right"] == "C":
+            elif question["right"] == "C" or question["right"] == "c":
                 answer_list.append(2)
-            elif question["right"] == "D":
+            elif question["right"] == "D" or question["right"] == "d":
                 answer_list.append(3)
-    while question_index < 99:
+            else:
+                answer_list.append(0)
+    while question_index < 100:
+        print("question_index:" + str(question_index))
         browser.switch_to.window(browser.window_handles[0])
-        ul = WebDriverWait(browser, 5, 0.01).until(EC.presence_of_element_located((By.ID, "o")))
+        ul = WebDriverWait(browser, 5, 0.1).until(EC.presence_of_element_located((By.ID, "o")))
         li_list = ul.find_elements_by_tag_name("li")
-        li_right = li_list[answer_list[question_index]]
+        p = browser.find_element_by_id("t")
+        data_id = p.get_attribute("data-id")
+        if data_id == "691":
+            li_right = li_list[3]
+        elif data_id == "650":
+            li_right = li_list[1]
+        else:
+            li_right = li_list[answer_list[question_index]]
         li_right.click()
         time.sleep(0.1)
         question_index += 1
         next_button = browser.find_element_by_css_selector("body > div.button > ul > li:nth-child(2) > div")
+        time.sleep(0.1)
         next_button.click()
-        time.sleep(1)
+        time.sleep(1.2)
     browser.switch_to.window(browser.window_handles[0])
     ul = WebDriverWait(browser, 5, 0.01).until(EC.presence_of_element_located((By.ID, "o")))
     li_list = ul.find_elements_by_tag_name("li")
@@ -88,7 +100,6 @@ while True:
     again = input("\n答题结束，再答一次请返回首页后输入ok，退出输入quit")
     if again == "ok":
         wait_time = int(input("请输入答题时间："))
-        wait_time = wait_time - 2
     else:
         break
 
