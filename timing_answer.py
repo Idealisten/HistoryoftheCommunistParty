@@ -61,8 +61,6 @@ while True:
                 answer_list.append(2)
             elif question["right"] == "D" or question["right"] == "d":
                 answer_list.append(3)
-            else:
-                answer_list.append(0)
     while question_index < 100:
         print("question_index:" + str(question_index))
         browser.switch_to.window(browser.window_handles[0])
@@ -73,7 +71,7 @@ while True:
         if data_id == "691":
             li_right = li_list[3]
         elif data_id == "650":
-            li_right = li_list[1]
+            li_right = li_list[2]
         else:
             li_right = li_list[answer_list[question_index]]
         li_right.click()
