@@ -26,7 +26,7 @@ while True:
     if ok == "ok":
         break;'o96'
 
-for i in range(500):
+for i in range(300):
     browser.switch_to.window(browser.window_handles[0])
     try:
         start = WebDriverWait(browser, 2, 0.5).until(EC.presence_of_element_located((By.CLASS_NAME, "piecel-box")))
