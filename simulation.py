@@ -24,7 +24,7 @@ ok = "nok"
 while True:
     ok = input("登录后输入ok！")
     if ok == "ok":
-        break
+        break;'o96'
 
 for i in range(500):
     browser.switch_to.window(browser.window_handles[0])

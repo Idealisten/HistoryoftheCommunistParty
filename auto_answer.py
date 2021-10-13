@@ -27,8 +27,8 @@ ok = "nok"
 def countdown():
     global wait_time, ok
     while wait_time > 0:
-        if ok == "ok":
-            print("\r" + str(wait_time), end="")
+        # if ok == "ok":
+            # print("\r" + str(wait_time), end="")
         time.sleep(1)
         wait_time -= 1
         if wait_time == 0:
@@ -56,7 +56,8 @@ while True:
         ok = "no"
         # ul = WebDriverWait(browser, 5, 0.5).until(EC.presence_of_element_located((By.ID, "o")))
         # li_list = ul.find_elements_by_tag_name("li")
-        with open('/Users/CAOYUE/Desktop/题库1.txt') as f:
+        #with open('/Users/CAOYUE/Desktop/题库1.txt') as f:
+        with open('题库1.txt') as f:
             txt = f.read()
             txt_list = demjson.decode(txt)
             for question in txt_list:
@@ -69,16 +70,25 @@ while True:
                 elif question["right"] == "D":
                     answer_list.append(3)
         while question_index < 100:
+            print("question_index:" + str(question_index))
             browser.switch_to.window(browser.window_handles[0])
-            time.sleep(1.3)
-            ul = WebDriverWait(browser, 5, 0.01).until(EC.presence_of_element_located((By.ID, "o")))
+            ul = WebDriverWait(browser, 5, 0.1).until(EC.presence_of_element_located((By.ID, "o")))
             li_list = ul.find_elements_by_tag_name("li")
-            li_right = li_list[answer_list[question_index]]
+            p = browser.find_element_by_id("t")
+            data_id = p.get_attribute("data-id")
+            if data_id == "691":
+                li_right = li_list[3]
+            elif data_id == "650":
+                li_right = li_list[1]
+            else:
+                li_right = li_list[answer_list[question_index]]
             li_right.click()
-            question_index += 1
             time.sleep(0.1)
+            question_index += 1
             next_button = browser.find_element_by_css_selector("body > div.button > ul > li:nth-child(2) > div")
+            time.sleep(0.1)
             next_button.click()
+            time.sleep(1.2)
         question_index = 0
         answer_list.clear()
         again = input("答题结束，再答一次请返回首页后输入ok，退出输入quit")
