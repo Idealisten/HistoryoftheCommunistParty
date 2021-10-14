@@ -62,7 +62,7 @@ while True:
         txt = f.read()
         txt_list = demjson.decode(txt)
         for question in txt_list:
-            if question["right"] == "A" or question["right"] == "a":
+            if 183question["right"] == "A" or question["right"] == "a":
                 answer_list.append(0)
             elif question["right"] == "B" or question["right"] == "b":
                 answer_list.append(1)
@@ -73,17 +73,17 @@ while True:
     '''
     while question_index < 99:
         # print("question_index:" + str(question_index))
-        browser.switch_to.window(browser.window_handles[0])
+        # browser.switch_to.window(browser.window_handles[0])
         time.sleep(0.2)
         ul = WebDriverWait(browser, 5, 0.1).until(EC.presence_of_element_located((By.ID, "o")))
         li_list = ul.find_elements_by_tag_name("li")
         p = browser.find_element_by_id("t")
         data_id = p.get_attribute("data-id")
         if data_id == "691":
-            li_right = li_list[3]
+            li_right = li_list[2]
             li_right.click()
         elif data_id == "650":
-            li_right = li_list[2]
+            li_right = li_list[1]
             li_right.click()
         else:
             # li_right = li_list[answer_list[question_index]]
@@ -100,7 +100,7 @@ while True:
             elif question_right == "D" or question_right == "d":
                 li_right = li_list[3]
                 li_right.click()
-        time.sleep(0.1)
+        time.sleep(0.2)
         question_index += 1
         next_button = browser.find_element_by_css_selector("body > div.button > ul > li:nth-child(2) > div")
         next_button.click()
