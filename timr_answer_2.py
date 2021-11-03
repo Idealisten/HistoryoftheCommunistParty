@@ -79,44 +79,7 @@ while True:
         li_list = ul.find_elements_by_tag_name("li")
         p = browser.find_element_by_id("t")
         data_id = p.get_attribute("data-id")
-        if data_id == "691":
-            li_right = li_list[2]
-            li_right.click()
-        elif data_id == "650":
-            li_right = li_list[1]
-            li_right.click()
-        else:
-            # li_right = li_list[answer_list[question_index]]
-            question_right = p.get_attribute("da")
-            if question_right == "A" or question_right == "a":
-                li_right = li_list[0]
-                li_right.click()
-            elif question_right == "B" or question_right == "b":
-                li_right = li_list[1]
-                li_right.click()
-            elif question_right == "C" or question_right == "c":
-                li_right = li_list[2]
-                li_right.click()
-            elif question_right == "D" or question_right == "d":
-                li_right = li_list[3]
-                li_right.click()
-        time.sleep(0.2)
-        question_index += 1
-        next_button = browser.find_element_by_css_selector("body > div.button > ul > li:nth-child(2) > div")
-        next_button.click()
-        time.sleep(1.3)
-    browser.switch_to.window(browser.window_handles[0])
-    ul = WebDriverWait(browser, 5, 0.01).until(EC.presence_of_element_located((By.ID, "o")))
-    p = browser.find_element_by_id("t")
-    li_list = ul.find_elements_by_tag_name("li")
-    data_id = p.get_attribute("data-id")
-    if data_id == "691":
-        li_right = li_list[3]
-        li_right.click()
-    elif data_id == "650":
-        li_right = li_list[2]
-        li_right.click()
-    else:
+        # li_right = li_list[answer_list[question_index]]
         question_right = p.get_attribute("da")
         if question_right == "A" or question_right == "a":
             li_right = li_list[0]
@@ -130,6 +93,29 @@ while True:
         elif question_right == "D" or question_right == "d":
             li_right = li_list[3]
             li_right.click()
+        time.sleep(0.1)
+        question_index += 1
+        next_button = browser.find_element_by_css_selector("body > div.button > ul > li:nth-child(2) > div")
+        next_button.click()
+        time.sleep(1.2)
+    browser.switch_to.window(browser.window_handles[0])
+    ul = WebDriverWait(browser, 5, 0.01).until(EC.presence_of_element_located((By.ID, "o")))
+    p = browser.find_element_by_id("t")
+    li_list = ul.find_elements_by_tag_name("li")
+    data_id = p.get_attribute("data-id")
+    question_right = p.get_attribute("da")
+    if question_right == "A" or question_right == "a":
+        li_right = li_list[0]
+        li_right.click()
+    elif question_right == "B" or question_right == "b":
+        li_right = li_list[1]
+        li_right.click()
+    elif question_right == "C" or question_right == "c":
+        li_right = li_list[2]
+        li_right.click()
+    elif question_right == "D" or question_right == "d":
+        li_right = li_list[3]
+        li_right.click()
     li_right.click()
     question_index += 1
     next_button = browser.find_element_by_css_selector("body > div.button > ul > li:nth-child(2) > div")
