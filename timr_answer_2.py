@@ -73,7 +73,7 @@ while True:
     '''
     while question_index < 99:
         # print("question_index:" + str(question_index))
-        # browser.switch_to.window(browser.window_handles[0])
+        browser.switch_to.window(browser.window_handles[0])
         time.sleep(0.2)
         ul = WebDriverWait(browser, 5, 0.1).until(EC.presence_of_element_located((By.ID, "o")))
         li_list = ul.find_elements_by_tag_name("li")
