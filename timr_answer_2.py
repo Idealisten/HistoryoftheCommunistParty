@@ -75,7 +75,7 @@ while True:
         # print("question_index:" + str(question_index))
         browser.switch_to.window(browser.window_handles[0])
         ul = WebDriverWait(browser, 5, 0.1).until(EC.presence_of_element_located((By.ID, "o")))
-        time.sleep(0.2)
+        time.sleep(0.3)
         li_list = ul.find_elements_by_tag_name("li")
         p = browser.find_element_by_id("t")
         data_id = p.get_attribute("data-id")
@@ -97,7 +97,7 @@ while True:
         question_index += 1
         next_button = browser.find_element_by_css_selector("body > div.button > ul > li:nth-child(2) > div")
         next_button.click()
-        time.sleep(1.2)
+        time.sleep(1.1)
     browser.switch_to.window(browser.window_handles[0])
     ul = WebDriverWait(browser, 5, 0.01).until(EC.presence_of_element_located((By.ID, "o")))
     p = browser.find_element_by_id("t")
