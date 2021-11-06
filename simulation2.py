@@ -26,29 +26,48 @@ while True:
         break
 '''
 
-for item in users.items():
+
+def open_browser():
     options = webdriver.ChromeOptions()
     options.add_argument("user-agent=MicroMessenger")
     browser = webdriver.Chrome(options=options)
     browser.maximize_window()
     browser.get(url)
+    return browser
+
+
+def login():
     name = item[0]
     passwd = item[1]
-    name_input = WebDriverWait(browser, 5, 0.5).until(EC.presence_of_element_located((By.CSS_SELECTOR, "body > div.login_ind > div.middle > div > div.inp > div:nth-child(1) > div.i > input")))
+    name_input = WebDriverWait(browser, 5, 0.5).until(EC.presence_of_element_located(
+        (By.CSS_SELECTOR, "body > div.login_ind > div.middle > div > div.inp > div:nth-child(1) > div.i > input")))
     name_input.click()
     name_input.send_keys(name)
-    passwd_input = browser.find_element_by_css_selector("body > div.login_ind > div.middle > div > div.inp > div:nth-child(2) > div.i > input")
+    passwd_input = browser.find_element_by_css_selector(
+        "body > div.login_ind > div.middle > div > div.inp > div:nth-child(2) > div.i > input")
     passwd_input.click()
     passwd_input.send_keys(passwd)
     login = browser.find_element_by_css_selector("body > div.login_ind > div.middle > div > button")
     login.click()
+
+
+for item in users.items():
+    browser = open_browser()
+    login()
     time.sleep(2)
-    try:
-        start = WebDriverWait(browser, 2, 0.5).until(EC.presence_of_element_located((By.CLASS_NAME, "piecel-box")))
-        start.click()
-    except:
-        know = browser.find_element_by_css_selector("#layui-m-layer0 > div.layui-m-layermain > div > div > div.layui-m-layerbtn > span")
-        know.click()
+    while True:
+        try:
+            start = WebDriverWait(browser, 2, 0.5).until(EC.presence_of_element_located((By.CLASS_NAME, "piecel-box")))
+            start.click()
+        except:
+            know = browser.find_element_by_css_selector("#layui-m-layer0 > div.layui-m-layermain > div > div > div.layui-m-layerbtn > span")
+            know.click()
+            time.sleep(2)
+            login = browser.find_element_by_css_selector("body > div.login_ind > div.middle > div > button")
+            login.click()
+        else:
+            break
+
     time.sleep(5)
     for i in range(300):
         browser.switch_to.window(browser.window_handles[0])
