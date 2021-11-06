@@ -74,7 +74,7 @@ while True:
     while question_index < 99:
         # print("question_index:" + str(question_index))
         browser.switch_to.window(browser.window_handles[0])
-        time.sleep(0.2)
+        time.sleep(0.3)
         ul = WebDriverWait(browser, 5, 0.1).until(EC.presence_of_element_located((By.ID, "o")))
         li_list = ul.find_elements_by_tag_name("li")
         p = browser.find_element_by_id("t")
@@ -93,11 +93,11 @@ while True:
         elif question_right == "D" or question_right == "d":
             li_right = li_list[3]
             li_right.click()
-        time.sleep(0.1)
+        time.sleep(0.2)
         question_index += 1
         next_button = browser.find_element_by_css_selector("body > div.button > ul > li:nth-child(2) > div")
         next_button.click()
-        time.sleep(1.2)
+        time.sleep(1)
     browser.switch_to.window(browser.window_handles[0])
     ul = WebDriverWait(browser, 5, 0.01).until(EC.presence_of_element_located((By.ID, "o")))
     p = browser.find_element_by_id("t")
