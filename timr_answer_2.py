@@ -37,7 +37,7 @@ def countdown():
 
 
 while True:
-    for cycle_time in range(0, 20):
+    for cycle_time in range(0, 30):
         browser.get("http://ceshi.fotoncul.com.cn/title")
         start = WebDriverWait(browser, 5, 0.5).until(EC.presence_of_element_located((By.CLASS_NAME, "piecel-box")))
         t = threading.Thread(target=countdown)
@@ -72,7 +72,7 @@ while True:
             question_index += 1
             next_button = browser.find_element_by_css_selector("body > div.button > ul > li:nth-child(2) > div")
             next_button.click()
-            time.sleep(1)
+            time.sleep(1.1)
         browser.switch_to.window(browser.window_handles[0])
         ul = WebDriverWait(browser, 5, 0.01).until(EC.presence_of_element_located((By.ID, "o")))
         p = browser.find_element_by_id("t")
