@@ -46,30 +46,31 @@ while True:
         # print("question_index:" + str(question_index))
         if question_index == 0:
             browser.switch_to.window(browser.window_handles[0])
-        time.sleep(0.2)
+        time.sleep(0.1)
         ul = WebDriverWait(browser, 5, 0.1).until(EC.presence_of_element_located((By.ID, "o")))
-        time.sleep(0.2)
         li_list = ul.find_elements_by_tag_name("li")
-        time.sleep(0.2)
+        time.sleep(0.1)
         p = browser.find_element_by_id("t")
         data_id = p.get_attribute("data-id")
         # li_right = li_list[answer_list[question_index]]
         question_right = p.get_attribute("da")
         if question_right == "A" or question_right == "a":
             li_right = li_list[0]
-            li_right.click()
+
         elif question_right == "B" or question_right == "b":
             li_right = li_list[1]
-            li_right.click()
+
         elif question_right == "C" or question_right == "c":
             li_right = li_list[2]
-            li_right.click()
+
         elif question_right == "D" or question_right == "d":
             li_right = li_list[3]
-            li_right.click()
+
         elif question_index == "650":
             li_right = li_list[1]
-            li_right.click()
+        time.sleep(0.1)
+        li_right.click()
+        time.sleep(0.2)
         question_index += 1
         next_button = browser.find_element_by_css_selector("body > div.button > ul > li:nth-child(2) > div")
         next_button.click()
