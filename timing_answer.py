@@ -18,17 +18,23 @@ browser = webdriver.Chrome(options=options)
 browser.maximize_window()
 browser.get(url)
 wait_time = int(input("请输入答题时间："))
+wait_time_s = wait_time
 
 
 def countdown():
-    global wait_time, next_circle
+    global wait_time
     while wait_time > 0:
         # print("\r" + str(wait_time), end="")
-        next_circle = input("\r立刻进入下一轮答题请输入r: ")
+        print(wait_time)
         time.sleep(1)
         wait_time -= 1
         if wait_time == 0:
             break
+
+
+def nextcircle():
+    global next_circle
+    next_circle = input("立刻进入下一轮答题请输入r:")
 
 
 def click_answer():
@@ -37,7 +43,7 @@ def click_answer():
     time.sleep(1.1)
     ul = WebDriverWait(browser, 5, 0.1).until(EC.presence_of_element_located((By.ID, "o")))
     li_list = ul.find_elements_by_tag_name("li")
-    time.sleep(0.1)
+    time.sleep(0.2)
     p = browser.find_element_by_id("t")
     data_id = p.get_attribute("data-id")
     # li_right = li_list[answer_list[question_index]]
@@ -52,7 +58,7 @@ def click_answer():
         li_right = li_list[3]
     elif question_index == "650":
         li_right = li_list[1]
-    time.sleep(0.1)
+    time.sleep(0.2)
     li_right.click()
     time.sleep(0.2)
     question_index += 1
@@ -60,17 +66,21 @@ def click_answer():
 
 
 def answer_question():
-    global question_index
+    global question_index, next_circle
     browser.get("http://ceshi.fotoncul.com.cn/title")
     start = WebDriverWait(browser, 5, 0.5).until(EC.presence_of_element_located((By.CLASS_NAME, "piecel-box")))
     t = threading.Thread(target=countdown)
+    t2 = threading.Thread(target=nextcircle)
     start.click()
     t.start()
+    t2.start()
     print("开始答题，请等待～")
+    question_index = 0
     while question_index < 99:
         if next_circle == "r":
-            break
-        # print("question_index:" + str(question_index))
+            next_circle = "n"
+            answer_question()
+        print("question_index:" + str(question_index))
         click_answer()
         next_button.click()
         if question_index == 99:
@@ -78,6 +88,8 @@ def answer_question():
             t.join()
             while wait_time == 0:
                 next_button.click()
+                time.sleep(2)
+                answer_question()
                 break
     question_index = 0
 
@@ -85,6 +97,8 @@ def answer_question():
 def main():
     global question_index, wait_time, next_circle
     while True:
+        print(wait_time_s)
+        wait_time = wait_time_s
         next_circle = "n"
         try:
             answer_question()
