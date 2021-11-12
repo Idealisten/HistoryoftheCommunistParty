@@ -56,17 +56,21 @@ while True:
         question_right = p.get_attribute("da")
         if question_right == "A" or question_right == "a":
             li_right = li_list[0]
+
         elif question_right == "B" or question_right == "b":
             li_right = li_list[1]
+
         elif question_right == "C" or question_right == "c":
             li_right = li_list[2]
+
         elif question_right == "D" or question_right == "d":
             li_right = li_list[3]
+
         elif question_index == "650":
             li_right = li_list[1]
-        time.sleep(0.2)
-        li_right.click()
         time.sleep(0.1)
+        li_right.click()
+        time.sleep(0.2)
         question_index += 1
         next_button = browser.find_element_by_css_selector("body > div.button > ul > li:nth-child(2) > div")
         next_button.click()

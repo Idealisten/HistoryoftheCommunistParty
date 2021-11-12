@@ -27,10 +27,12 @@ while True:
     if ok == "ok":
         break
 
-for i in range(300):
+for i in range(500):
     browser.switch_to.window(browser.window_handles[0])
+    if i % 5 == 0:
+        browser.get("http://ceshi.fotoncul.com.cn/title")
     try:
-        start = WebDriverWait(browser, 2, 0.5).until(EC.presence_of_element_located((By.CLASS_NAME, "piecel-box")))
+        start = WebDriverWait(browser, 5, 0.5).until(EC.presence_of_element_located((By.CLASS_NAME, "piecel-box")))
         start.click()
     except:
         quit_play = WebDriverWait(browser, 5, 0.5).until(

@@ -100,13 +100,8 @@ while True:
             # print("\n答题结束")
             break
         question_index = 0
-    '''
-    again = input("\n答题结束，再答一次请返回首页后输入ok，退出输入quit")
-    if again == "ok":
-        wait_time = int(input("请输入答题时间："))
-    else:
-        break
-    '''
+    
+
 
 
 
