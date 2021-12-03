@@ -60,7 +60,7 @@ def click_answer():
         li_right = li_list[1]
     time.sleep(0.2)
     li_right.click()
-    time.sleep(0.2)
+    time.sleep(0.1)
     question_index += 1
     next_button = browser.find_element_by_css_selector("body > div.button > ul > li:nth-child(2) > div")
 
@@ -89,7 +89,6 @@ def answer_question():
             while wait_time == 0:
                 next_button.click()
                 time.sleep(2)
-                answer_question()
                 break
     question_index = 0
 
